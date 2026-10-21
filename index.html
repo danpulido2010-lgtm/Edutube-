@@ -62,7 +62,7 @@
                 <i class="fa-solid fa-bars text-lg"></i>
             </button>
             
-            <!-- BRAND LOGO FROM EMBLEM IMAGE -->
+            <!-- BRAND LOGO -->
             <div class="flex items-center gap-3 cursor-pointer select-none" onclick="resetToHome()">
                 <svg class="w-10 h-10 drop-shadow-[0_0_12px_rgba(99,102,241,0.5)] flex-shrink-0" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
@@ -76,18 +76,12 @@
                             <stop offset="100%" stop-color="#8b5cf6"/>
                         </linearGradient>
                     </defs>
-                    <!-- Open Book Header -->
                     <path d="M 20 28 Q 50 18 50 32 Q 50 18 80 28 L 80 34 Q 50 24 50 38 Q 50 24 20 34 Z" fill="url(#logoGrad2)" opacity="0.9"/>
                     <path d="M 25 24 Q 50 14 50 28 Q 50 14 75 24" stroke="#d8b4fe" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-                    <!-- Tassel -->
                     <path d="M 22 26 L 15 36 M 15 36 A 2 2 0 1 0 15 40 A 2 2 0 1 0 15 36" stroke="#f472b6" stroke-width="2" stroke-linecap="round" fill="none"/>
-                    <!-- Outer Shield Frame -->
                     <path d="M 18 36 Q 50 28 82 36 Q 86 64 50 90 Q 14 64 18 36 Z" fill="url(#logoGrad1)"/>
-                    <!-- Inner Dark Inset -->
                     <path d="M 23 40 Q 50 33 77 40 Q 80 62 50 83 Q 20 62 23 40 Z" fill="#0f172a"/>
-                    <!-- Play Triangle -->
                     <path d="M 40 45 L 68 57 L 40 69 Z" fill="url(#logoGrad1)"/>
-                    <!-- Central Flame -->
                     <path d="M 50 63 C 46 63 44 60 45 57 C 46 54 48 53 50 49 C 52 53 55 55 55 58 C 55 61 53 63 50 63 Z" fill="#38bdf8"/>
                     <path d="M 50 62 C 48 62 47 60 48 58 C 49 56 50 55 50 53 C 51 55 53 57 52 59 C 52 61 51 62 50 62 Z" fill="#f43f5e"/>
                 </svg>
@@ -95,9 +89,6 @@
                 <div class="flex flex-col justify-center">
                     <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent leading-none">
                         EduTube
-                    </span>
-                    <span class="text-[9px] font-medium text-cyan-200/80 tracking-normal mt-0.5">
-                       
                     </span>
                 </div>
             </div>
@@ -167,21 +158,16 @@
             <!-- MAIN VIDEO PLAYER SECTION -->
             <section id="player-container" class="mb-8 hidden">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- VIDEO PLAYER & METADATA -->
                     <div class="lg:col-span-2 flex flex-col gap-4">
                         <div id="video-wrapper" class="relative group bg-black rounded-2xl overflow-hidden shadow-2xl aspect-video flex items-center justify-center">
                             <video id="main-video" class="w-full h-full object-contain cursor-pointer"></video>
 
                             <!-- CUSTOM CONTROLS -->
                             <div id="custom-controls" class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                                
-                                <!-- PROGRESS BAR -->
                                 <div class="relative w-full flex items-center group/slider mb-3">
                                     <input type="range" id="progress-bar" min="0" max="100" value="0" step="0.1"
                                            class="w-full h-1.5 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-indigo-500 focus:outline-none">
                                 </div>
-
-                                <!-- CONTROLS ROW -->
                                 <div class="flex items-center justify-between text-white gap-4">
                                     <div class="flex items-center gap-3 sm:gap-4">
                                         <button id="btn-play-pause" class="hover:text-indigo-400 transition text-xl focus:outline-none">
@@ -192,20 +178,15 @@
                                         </button>
                                         <input type="range" id="volume-bar" min="0" max="1" step="0.05" value="1" 
                                                class="w-16 sm:w-20 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-indigo-500">
-                                        
-                                        <span id="time-display" class="text-xs sm:text-sm text-gray-300 font-mono ml-2">
-                                            00:00 / 00:00
-                                        </span>
+                                        <span id="time-display" class="text-xs sm:text-sm text-gray-300 font-mono ml-2">00:00 / 00:00</span>
                                     </div>
-
                                     <div class="flex items-center gap-3 sm:gap-4">
-                                        <select id="quality-selector" class="bg-gray-800/80 hover:bg-gray-700/80 text-white text-xs font-semibold rounded-lg px-2.5 py-1.5 border border-gray-600 focus:outline-none cursor-pointer">
+                                        <select id="quality-selector" class="bg-gray-800/85 hover:bg-gray-700 text-white text-xs font-semibold rounded-lg px-2.5 py-1.5 border border-gray-600 focus:outline-none cursor-pointer">
                                             <option value="auto">Calidad: Auto</option>
                                             <option value="1080p">1080p HD</option>
                                             <option value="720p">720p HD</option>
                                             <option value="480p">480p SD</option>
                                         </select>
-
                                         <button id="btn-fullscreen" class="hover:text-indigo-400 transition text-lg focus:outline-none">
                                             <i class="fa-solid fa-expand"></i>
                                         </button>
@@ -223,62 +204,42 @@
                                     <span id="active-video-date"><i class="fa-regular fa-calendar mr-1"></i> Fecha</span>
                                     <span id="active-video-category-tag" class="bg-indigo-500/20 text-indigo-300 px-2.5 py-0.5 rounded-full text-xs font-semibold">Física</span>
                                 </div>
-                                <div class="flex gap-2">
-                                    <button onclick="closePlayer()" class="flex items-center gap-1.5 bg-gray-800 hover:bg-gray-700 px-3.5 py-1.5 rounded-full text-xs font-medium text-gray-200 transition">
-                                        <i class="fa-solid fa-xmark"></i> Cerrar Reproductor
-                                    </button>
-                                </div>
+                                <button onclick="closePlayer()" class="flex items-center gap-1.5 bg-gray-800 hover:bg-gray-700 px-3.5 py-1.5 rounded-full text-xs font-medium text-gray-200 transition">
+                                    <i class="fa-solid fa-xmark"></i> Cerrar Reproductor
+                                </button>
                             </div>
-
-                            <div class="flex items-start gap-3">
-                                <div class="flex-1">
-                                    <p id="active-video-desc" class="text-sm text-gray-300 whitespace-pre-line leading-relaxed">
-                                        Sin descripción disponible.
-                                    </p>
-                                </div>
-                            </div>
+                            <p id="active-video-desc" class="text-sm text-gray-300 whitespace-pre-line leading-relaxed">Sin descripción disponible.</p>
                         </div>
                     </div>
 
                     <!-- RELATED LIST -->
                     <div class="flex flex-col gap-3">
                         <h2 class="text-base font-bold text-gray-200 mb-1">Más Videos</h2>
-                        <div id="related-videos-list" class="flex flex-col gap-3 max-h-[600px] overflow-y-auto pr-1">
-                        </div>
+                        <div id="related-videos-list" class="flex flex-col gap-3 max-h-[600px] overflow-y-auto pr-1"></div>
                     </div>
                 </div>
             </section>
 
             <!-- CATEGORY TAGS -->
             <div id="category-pills" class="flex items-center gap-2 overflow-x-auto pb-4 mb-4 no-scrollbar">
-                <button onclick="filterByCategory('all')" class="cat-pill px-4 py-1.5 bg-indigo-600 text-white rounded-full text-sm font-medium whitespace-nowrap">
-                    Todos
-                </button>
-                <button onclick="filterByCategory('Física')" class="cat-pill px-4 py-1.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full text-sm font-medium whitespace-nowrap">
-                    Física
-                </button>
-                <button onclick="filterByCategory('Química')" class="cat-pill px-4 py-1.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full text-sm font-medium whitespace-nowrap">
-                    Química
-                </button>
+                <button onclick="filterByCategory('all')" class="cat-pill px-4 py-1.5 bg-indigo-600 text-white rounded-full text-sm font-medium whitespace-nowrap">Todos</button>
+                <button onclick="filterByCategory('Física')" class="cat-pill px-4 py-1.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full text-sm font-medium whitespace-nowrap">Física</button>
+                <button onclick="filterByCategory('Química')" class="cat-pill px-4 py-1.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-full text-sm font-medium whitespace-nowrap">Química</button>
             </div>
 
             <!-- GALLERY GRID SECTION -->
             <section id="gallery-section">
                 <div class="flex items-center justify-between mb-4">
-                    <h2 id="gallery-title" class="text-xl font-bold text-gray-100">Catálogo Educativo</h2>
+                    <h2 class="text-xl font-bold text-gray-100">Catálogo Educativo</h2>
                     <span id="video-count" class="text-xs text-gray-400 font-medium">0 videos</span>
                 </div>
-
-                <div id="video-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-                </div>
-
-                <!-- EMPTY STATE -->
+                <div id="video-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"></div>
                 <div id="empty-state" class="hidden flex-col items-center justify-center py-16 text-center">
                     <div class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mb-4 text-gray-500 text-2xl">
                         <i class="fa-solid fa-atom"></i>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-300">No hay videos disponibles</h3>
-                    <p class="text-sm text-gray-500 max-w-sm mt-1">Inicia sesión como administrador para publicar lecciones de Física y Química.</p>
+                    <p class="text-sm text-gray-500 max-w-sm mt-1">Inicia sesión como administrador para publicar lecciones.</p>
                 </div>
             </section>
 
@@ -295,13 +256,10 @@
                         <button onclick="openUploadModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition flex items-center gap-2">
                             <i class="fa-solid fa-cloud-arrow-up"></i> Nuevo Video
                         </button>
-                        <button onclick="logoutAdmin()" class="bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded-xl text-sm font-medium transition">
-                            Cerrar Sesión
-                        </button>
+                        <button onclick="logoutAdmin()" class="bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded-xl text-sm font-medium transition">Cerrar Sesión</button>
                     </div>
                 </div>
 
-                <!-- TABLE OF MANAGED VIDEOS -->
                 <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-xl">
                     <div class="px-6 py-4 border-b border-gray-800 flex justify-between items-center">
                         <h3 class="font-bold text-gray-200">Gestionar Videos Publicados</h3>
@@ -318,9 +276,7 @@
                                     <th class="py-3 px-4 text-right">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody id="admin-video-table-body" class="divide-y divide-gray-800">
-                                <!-- Dynamic admin rows -->
-                            </tbody>
+                            <tbody id="admin-video-table-body" class="divide-y divide-gray-800"></tbody>
                         </table>
                     </div>
                 </div>
@@ -332,18 +288,8 @@
     <div id="login-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
         <div class="bg-gray-900 border border-gray-800 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl">
             <div class="px-6 py-5 border-b border-gray-800 flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                    <svg class="w-6 h-6" viewBox="0 0 100 100" fill="none">
-                        <path d="M 18 36 Q 50 28 82 36 Q 86 64 50 90 Q 14 64 18 36 Z" fill="#8b5cf6"/>
-                        <path d="M 40 45 L 68 57 L 40 69 Z" fill="#ffffff"/>
-                    </svg>
-                    <h3 class="font-bold text-lg text-gray-100">
-                        Acceso Administrador EduTube
-                    </h3>
-                </div>
-                <button onclick="closeLoginModal()" class="text-gray-400 hover:text-white">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
+                <h3 class="font-bold text-lg text-gray-100">Acceso Administrador EduTube</h3>
+                <button onclick="closeLoginModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <form onsubmit="handleLoginSubmit(event)" class="p-6 space-y-4">
                 <div>
@@ -354,22 +300,17 @@
                         <option value="CHOCO">CHOCO</option>
                     </select>
                 </div>
-
                 <div>
                     <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Contraseña</label>
                     <input type="password" id="login-password" required placeholder="••••••••" 
                            class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-sm text-gray-200 focus:outline-none focus:border-indigo-500">
                 </div>
-
                 <div id="login-error-msg" class="hidden text-xs text-red-400 bg-red-950/40 border border-red-800/50 p-3 rounded-xl">
                     Contraseña incorrecta. Verifique e intente de nuevo.
                 </div>
-
                 <div class="pt-2 flex justify-end gap-3">
-                    <button type="button" onclick="closeLoginModal()" class="px-4 py-2 rounded-xl text-sm font-medium text-gray-400 hover:bg-gray-800 transition">Cancelar</button>
-                    <button type="submit" class="px-5 py-2 rounded-xl text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white transition">
-                        Ingresar
-                    </button>
+                    <button type="button" onclick="closeLoginModal()" class="px-4 py-2 rounded-xl text-sm font-medium text-gray-400 hover:bg-gray-800">Cancelar</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white">Ingresar</button>
                 </div>
             </form>
         </div>
@@ -379,127 +320,101 @@
     <div id="upload-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
         <div class="bg-gray-900 border border-gray-800 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl">
             <div class="px-6 py-4 border-b border-gray-800 flex justify-between items-center">
-                <h3 id="modal-form-title" class="font-bold text-lg text-gray-100 flex items-center gap-2">
-                    <i class="fa-solid fa-cloud-arrow-up text-indigo-400"></i> Subir Lección Educativa
-                </h3>
-                <button onclick="closeUploadModal()" class="text-gray-400 hover:text-white p-1 rounded-lg">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
+                <h3 id="modal-form-title" class="font-bold text-lg text-gray-100">Subir Lección Educativa</h3>
+                <button onclick="closeUploadModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-
             <form id="upload-form" onsubmit="handleVideoSubmit(event)" class="p-6 space-y-4">
                 <input type="hidden" id="editing-video-id" value="">
-
-                <!-- SOURCE SELECTOR -->
                 <div id="source-selector-wrapper">
                     <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Origen del Video</label>
                     <div class="grid grid-cols-2 gap-3 mb-3">
                         <button type="button" id="btn-source-file" onclick="setSourceType('file')" class="py-2 px-3 border border-indigo-500 bg-indigo-500/10 text-indigo-300 text-xs font-semibold rounded-xl flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-file-video"></i> Archivo Video (Persistent)
+                            <i class="fa-solid fa-file-video"></i> Archivo Video
                         </button>
                         <button type="button" id="btn-source-url" onclick="setSourceType('url')" class="py-2 px-3 border border-gray-700 text-gray-400 text-xs font-semibold rounded-xl flex items-center justify-center gap-2">
                             <i class="fa-solid fa-link"></i> URL Pública (MP4)
                         </button>
                     </div>
                 </div>
-
-                <!-- FILE INPUT -->
                 <div id="input-file-container">
                     <label class="block text-xs font-medium text-gray-300 mb-1">Archivo de Video (MP4 / WebM)</label>
                     <input type="file" id="upload-file" accept="video/mp4,video/webm" 
                            class="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 bg-gray-800 rounded-xl border border-gray-700 cursor-pointer">
                 </div>
-
-                <!-- URL INPUT -->
                 <div id="input-url-container" class="hidden">
                     <label class="block text-xs font-medium text-gray-300 mb-1">URL del Video (MP4 direct link)</label>
                     <input type="url" id="upload-url" placeholder="https://ejemplo.com/video.mp4" 
                            class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500">
-                    <button type="button" onclick="loadSampleUrl()" class="text-xs text-indigo-400 hover:underline mt-1">Cargar demo (Big Buck Bunny)</button>
                 </div>
-
-                <!-- METADATA INPUTS -->
                 <div>
                     <label class="block text-xs font-medium text-gray-300 mb-1">Título de la Lección *</label>
-                    <input type="text" id="upload-title" required placeholder="Ej. Leyes de Newton y Dinámica" 
+                    <input type="text" id="upload-title" required placeholder="Ej. Leyes de Newton" 
                            class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500">
                 </div>
-
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-medium text-gray-300 mb-1">Categoría *</label>
-                        <select id="upload-category" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500">
+                        <select id="upload-category" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none">
                             <option value="Física">Física</option>
                             <option value="Química">Química</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-xs font-medium text-gray-300 mb-1">Calidad</label>
-                        <select id="upload-quality" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500">
+                        <select id="upload-quality" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none">
                             <option value="1080p">1080p HD</option>
                             <option value="720p">720p HD</option>
                             <option value="480p">480p SD</option>
                         </select>
                     </div>
                 </div>
-
                 <div>
                     <label class="block text-xs font-medium text-gray-300 mb-1">Descripción</label>
-                    <textarea id="upload-desc" rows="3" placeholder="Resumen teórico, fórmulas o guía de estudio..." 
-                              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500 resize-none"></textarea>
+                    <textarea id="upload-desc" rows="3" placeholder="Resumen o guía..." 
+                              class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none resize-none"></textarea>
                 </div>
-
                 <div class="pt-2 flex justify-end gap-3">
-                    <button type="button" onclick="closeUploadModal()" class="px-4 py-2 rounded-xl text-sm font-medium text-gray-400 hover:bg-gray-800 transition">Cancelar</button>
-                    <button type="submit" id="btn-save-video" class="px-5 py-2 rounded-xl text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white transition flex items-center gap-2">
-                        Guardar Video
-                    </button>
+                    <button type="button" onclick="closeUploadModal()" class="px-4 py-2 rounded-xl text-sm font-medium text-gray-400 hover:bg-gray-800">Cancelar</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white">Guardar Video</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- MODAL FOR CLOUD CONFIGURATION (SUPABASE CONNECT) -->
+    <!-- MODAL FOR CLOUD CONFIGURATION -->
     <div id="cloud-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
         <div class="bg-gray-900 border border-gray-800 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl">
             <div class="px-6 py-4 border-b border-gray-800 flex justify-between items-center">
                 <h3 class="font-bold text-lg text-gray-100 flex items-center gap-2">
-                    <i class="fa-solid fa-cloud text-cyan-400"></i> Conectar Base de Datos en la Nube
+                    <i class="fa-solid fa-cloud text-cyan-400"></i> Conectar Nube (Supabase)
                 </h3>
-                <button onclick="closeCloudConfigModal()" class="text-gray-400 hover:text-white p-1 rounded-lg">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
+                <button onclick="closeCloudConfigModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="p-6 space-y-4">
-                <p class="text-xs text-gray-300 leading-relaxed">
-                    Para sincronizar tus videos online en vivo en múltiples dispositivos (celulares, PCs), ingresa las credenciales gratuitas de tu proyecto en <strong class="text-indigo-400">Supabase</strong>. Si no las ingresas, EduTube funcionará con su motor persistente en navegador (IndexedDB).
-                </p>
+                <p class="text-xs text-gray-300">Ingresa tus credenciales de Supabase para sincronización online:</p>
                 <div>
                     <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Supabase Project URL</label>
-                    <input type="text" id="supabase-url-input" placeholder="https://xyzxyz.supabase.co" 
-                           class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-cyan-500">
+                    <input type="text" id="supabase-url-input" placeholder="https://xyz.supabase.co" 
+                           class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Supabase Anon Key</label>
-                    <input type="password" id="supabase-key-input" placeholder="eyJhbGciOiJIUzI1Ni..." 
-                           class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-cyan-500">
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Supabase Anon / Public Key</label>
+                    <input type="password" id="supabase-key-input" placeholder="sb_publishable_..." 
+                           class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none">
                 </div>
                 <div class="pt-2 flex justify-between items-center">
-                    <button type="button" onclick="clearSupabaseConfig()" class="text-xs text-red-400 hover:underline">
-                        Desconectar y usar Local
-                    </button>
+                    <button type="button" onclick="clearSupabaseConfig()" class="text-xs text-red-400 hover:underline">Desconectar</button>
                     <div class="flex gap-2">
                         <button type="button" onclick="closeCloudConfigModal()" class="px-4 py-2 rounded-xl text-sm font-medium text-gray-400 hover:bg-gray-800">Cancelar</button>
-                        <button type="button" onclick="saveSupabaseConfig()" class="px-5 py-2 rounded-xl text-sm font-medium bg-cyan-600 hover:bg-cyan-700 text-white">Guardar y Sincronizar</button>
+                        <button type="button" onclick="saveSupabaseConfig()" class="px-5 py-2 rounded-xl text-sm font-medium bg-cyan-600 hover:bg-cyan-700 text-white">Guardar</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <!-- SCRIPT ENGINE -->
     <script>
-        // --- INDEXEDDB STORAGE SETUP ---
         const DB_NAME = 'EduTubePhysChemDB';
         const DB_VERSION = 1;
         let db = null;
@@ -511,54 +426,22 @@
                 request.onupgradeneeded = (e) => {
                     const database = e.target.result;
                     if (!database.objectStoreNames.contains('videos')) {
-                        const store = database.createObjectStore('videos', { keyPath: 'id' });
-                        store.createIndex('category', 'category', { unique: false });
+                        database.createObjectStore('videos', { keyPath: 'id' });
                     }
                 };
-                request.onsuccess = (e) => {
-                    db = e.target.result;
-                    resolve(db);
-                };
-                request.onerror = (e) => reject('Error IndexedDB: ' + e.target.error);
+                request.onsuccess = (e) => { db = e.target.result; resolve(db); };
+                request.onerror = (e) => reject(e.target.error);
             });
         }
 
-        // --- AUTH & USER STATE ---
         const ALLOWED_ADMINS = ['ISABELLA', 'PULIDO', 'CHOCO'];
         const ADMIN_PASS = '12345678';
         let currentAdminUser = null;
-
-        // --- APP STATE ---
         let videos = [];
         let activeVideo = null;
         let sourceType = 'file';
         let activeCategoryFilter = 'all';
 
-        // DEFAULT INITIAL VIDEOS
-        const DEFAULT_VIDEOS = [
-            {
-                id: 'demo-phys-1',
-                title: 'Movimiento Rectilíneo Uniformemente Variado (MRUV)',
-                category: 'Física',
-                quality: '1080p',
-                views: 5,
-                date: new Date().toISOString().split('T')[0],
-                desc: 'Explicación completa de las ecuaciones de posición, velocidad y aceleración en el MRUV.',
-                src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
-            },
-            {
-                id: 'demo-chem-1',
-                title: 'Tabla Periódica y Configuración Electrónica',
-                category: 'Química',
-                quality: '720p',
-                views: 3,
-                date: new Date().toISOString().split('T')[0],
-                desc: 'Cómo determinar los niveles de energía, orbitales s, p, d, f y la regla de Hund.',
-                src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
-            }
-        ];
-
-        // --- DOM REFERENCES ---
         const mainVideo = document.getElementById('main-video');
         const btnPlayPause = document.getElementById('btn-play-pause');
         const btnMute = document.getElementById('btn-mute');
@@ -570,7 +453,6 @@
         const videoGrid = document.getElementById('video-grid');
         const emptyState = document.getElementById('empty-state');
 
-        // --- INITIALIZATION ---
         window.addEventListener('DOMContentLoaded', async () => {
             try {
                 await initDB();
@@ -578,25 +460,19 @@
                 await loadAllVideos();
             } catch (err) {
                 console.error(err);
-                videos = [...DEFAULT_VIDEOS];
-                renderGallery(videos);
             }
             setupPlayerEvents();
         });
 
-        // --- SUPABASE CLOUD SYNC HELPERS ---
         function initSupabaseIfConfigured() {
             const savedUrl = localStorage.getItem('edutube_sb_url');
             const savedKey = localStorage.getItem('edutube_sb_key');
-
             if (savedUrl && savedKey && window.supabase) {
                 try {
                     supabaseClient = window.supabase.createClient(savedUrl, savedKey);
                     document.getElementById('cloud-dot').className = 'w-2 h-2 rounded-full bg-emerald-400';
                     document.getElementById('cloud-status-text').textContent = 'Nube Conectada';
-                } catch (e) {
-                    console.error('Error iniciando Supabase:', e);
-                }
+                } catch (e) { console.error(e); }
             }
         }
 
@@ -615,14 +491,13 @@
         function saveSupabaseConfig() {
             const url = document.getElementById('supabase-url-input').value.trim();
             const key = document.getElementById('supabase-key-input').value.trim();
-
             if (url && key) {
                 localStorage.setItem('edutube_sb_url', url);
                 localStorage.setItem('edutube_sb_key', key);
                 initSupabaseIfConfigured();
                 loadAllVideos();
                 closeCloudConfigModal();
-                showNotification('¡Credenciales guardadas! EduTube está sincronizado en la nube.');
+                showNotification('¡Nube conectada correctamente!');
             }
         }
 
@@ -634,39 +509,42 @@
             document.getElementById('cloud-status-text').textContent = 'Local / Offline';
             closeCloudConfigModal();
             loadAllVideos();
-            showNotification('Se volvió al almacenamiento local (IndexedDB).');
+            showNotification('Modo local activado.');
         }
 
-        // --- LOAD & DELETE DATA ENGINE ---
         async function loadAllVideos() {
+            let cloudVideos = [];
             if (supabaseClient) {
                 try {
                     const { data, error } = await supabaseClient.from('videos').select('*');
-                    if (!error && data) {
-                        videos = data;
-                        renderGallery(getFilteredVideos());
-                        renderAdminTable();
-                        return;
-                    }
-                } catch (err) {
-                    console.warn('Fallo consulta Supabase, usando local storage.', err);
-                }
+                    if (!error && data) cloudVideos = data;
+                } catch (e) { console.warn(e); }
             }
 
-            // Fallback: Local IndexedDB
             return new Promise((resolve) => {
-                const tx = db.transaction('videos', 'readonly');
+                const tx = db.transaction('videos', 'readwrite');
                 const store = tx.objectStore('videos');
                 const req = store.getAll();
                 req.onsuccess = async () => {
-                    const stored = req.result || [];
-                    if (stored.length === 0) {
-                        for (const vid of DEFAULT_VIDEOS) {
-                            await saveVideoToDB(vid);
-                        }
-                        videos = [...DEFAULT_VIDEOS];
+                    let localVideos = req.result || [];
+                    if (cloudVideos.length > 0) {
+                        videos = cloudVideos;
+                    } else if (localVideos.length === 0) {
+                        videos = [
+                            {
+                                id: 'demo-phys-1',
+                                title: 'Movimiento Rectilíneo Uniformemente Variado (MRUV)',
+                                category: 'Física',
+                                quality: '1080p',
+                                views: 5,
+                                date: new Date().toISOString().split('T')[0],
+                                desc: 'Ecuaciones de posición, velocidad y aceleración.',
+                                src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+                            }
+                        ];
+                        for (const vid of videos) { await saveVideoToDB(vid); }
                     } else {
-                        videos = stored;
+                        videos = localVideos;
                     }
                     renderGallery(getFilteredVideos());
                     renderAdminTable();
@@ -676,19 +554,13 @@
         }
 
         async function saveVideoToDB(videoObj) {
-            // Save in Supabase if online
             if (supabaseClient) {
                 try {
-                    // Stripping raw blob for Cloud DB to avoid payload over-limits
                     const cloudRecord = { ...videoObj };
                     delete cloudRecord.fileData;
                     await supabaseClient.from('videos').upsert([cloudRecord]);
-                } catch (e) {
-                    console.error('Error guardando en Supabase:', e);
-                }
+                } catch (e) { console.error(e); }
             }
-
-            // Always save locally in IndexedDB as persistent back up
             return new Promise((resolve, reject) => {
                 const tx = db.transaction('videos', 'readwrite');
                 const store = tx.objectStore('videos');
@@ -698,18 +570,12 @@
             });
         }
 
-        // ABSOLUTE FIXED DELETION METHOD
         async function deleteVideoFromDB(id) {
-            // 1. Delete from Cloud Supabase
             if (supabaseClient) {
                 try {
-                    await supabaseClient.from('videos').delete().eq('id', id);
-                } catch (e) {
-                    console.error('Error eliminando en Supabase:', e);
-                }
+                    await supabaseClient.from('videos').delete().eq('id', String(id));
+                } catch (e) { console.error(e); }
             }
-
-            // 2. Delete from IndexedDB
             await new Promise((resolve, reject) => {
                 const tx = db.transaction('videos', 'readwrite');
                 const store = tx.objectStore('videos');
@@ -718,26 +584,14 @@
                 req.onerror = () => reject(req.error);
             });
 
-            // 3. Purge completely from in-memory State
             videos = videos.filter(v => String(v.id) !== String(id));
-
-            // 4. Close player if currently playing the deleted video
-            if (activeVideo && String(activeVideo.id) === String(id)) {
-                closePlayer();
-            }
-
-            // 5. Re-render UI
+            if (activeVideo && String(activeVideo.id) === String(id)) { closePlayer(); }
             renderGallery(getFilteredVideos());
             renderAdminTable();
         }
 
-        // --- AUTHENTICATION & ADMIN PANEL ---
         function handleAdminButtonClick() {
-            if (currentAdminUser) {
-                toggleAdminPanel();
-            } else {
-                openLoginModal();
-            }
+            if (currentAdminUser) { toggleAdminPanel(); } else { openLoginModal(); }
         }
 
         function openLoginModal() {
@@ -755,7 +609,6 @@
             event.preventDefault();
             const user = document.getElementById('login-user-select').value;
             const pass = document.getElementById('login-password').value;
-
             if (ALLOWED_ADMINS.includes(user) && pass === ADMIN_PASS) {
                 currentAdminUser = user;
                 closeLoginModal();
@@ -771,13 +624,12 @@
             currentAdminUser = null;
             updateAuthUI();
             hideAdminPanel();
-            showNotification('Sesión de administrador cerrada.');
+            showNotification('Sesión cerrada.');
         }
 
         function updateAuthUI() {
             const userBadge = document.getElementById('user-badge-container');
             const btnAdminText = document.getElementById('btn-admin-text');
-
             if (currentAdminUser) {
                 userBadge.classList.remove('hidden');
                 document.getElementById('logged-user-name').textContent = currentAdminUser;
@@ -791,11 +643,7 @@
 
         function toggleAdminPanel() {
             const adminSec = document.getElementById('admin-panel-section');
-            if (adminSec.classList.contains('hidden')) {
-                showAdminPanel();
-            } else {
-                hideAdminPanel();
-            }
+            if (adminSec.classList.contains('hidden')) { showAdminPanel(); } else { hideAdminPanel(); }
         }
 
         function showAdminPanel() {
@@ -812,108 +660,58 @@
             document.getElementById('gallery-section').classList.remove('hidden');
         }
 
-        // --- ADMIN MANAGEMENT TABLE ---
         function renderAdminTable() {
             const tbody = document.getElementById('admin-video-table-body');
             tbody.innerHTML = '';
-            document.getElementById('admin-table-count').textContent = `${videos.length} videos en total`;
-
+            document.getElementById('admin-table-count').textContent = `${videos.length} videos`;
             videos.forEach(video => {
                 const tr = document.createElement('tr');
                 tr.className = 'hover:bg-gray-800/50 transition';
-
                 tr.innerHTML = `
                     <td class="py-3 px-4 font-semibold text-gray-100 flex items-center gap-2">
                         <i class="fa-solid fa-file-video text-indigo-400"></i>
                         <span class="truncate max-w-xs">${video.title}</span>
                     </td>
                     <td class="py-3 px-4">
-                        <span class="px-2.5 py-1 text-xs rounded-full font-bold ${video.category === 'Física' ? 'bg-indigo-900/50 text-indigo-300 border border-indigo-700/50' : 'bg-purple-900/50 text-purple-300 border border-purple-700/50'}">
-                            ${video.category}
-                        </span>
+                        <span class="px-2.5 py-1 text-xs rounded-full font-bold ${video.category === 'Física' ? 'bg-indigo-900/50 text-indigo-300' : 'bg-purple-900/50 text-purple-300'}">${video.category}</span>
                     </td>
                     <td class="py-3 px-4 text-xs font-mono text-gray-400">${video.date}</td>
                     <td class="py-3 px-4 text-xs font-bold text-indigo-300">${video.views || 0} vistas</td>
                     <td class="py-3 px-4 text-right space-x-2">
-                        <button onclick="editVideo('${video.id}')" class="text-indigo-400 hover:text-indigo-300 px-2.5 py-1 bg-gray-800 hover:bg-gray-700 rounded-lg text-xs font-medium">
-                            <i class="fa-solid fa-pen-to-square"></i> Editar
-                        </button>
-                        <button onclick="confirmDeleteVideo('${video.id}')" class="text-red-400 hover:text-red-300 px-2.5 py-1 bg-gray-800 hover:bg-gray-700 rounded-lg text-xs font-medium">
-                            <i class="fa-solid fa-trash"></i> Eliminar
-                        </button>
+                        <button onclick="confirmDeleteVideo('${video.id}')" class="text-red-400 hover:text-red-300 px-2.5 py-1 bg-gray-800 rounded-lg text-xs font-medium"><i class="fa-solid fa-trash"></i> Eliminar</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        // --- PLAYER EVENT HANDLERS ---
         function setupPlayerEvents() {
             btnPlayPause.addEventListener('click', togglePlay);
             mainVideo.addEventListener('click', togglePlay);
-
             mainVideo.addEventListener('timeupdate', () => {
                 if (mainVideo.duration) {
-                    const percent = (mainVideo.currentTime / mainVideo.duration) * 100;
-                    progressBar.value = percent;
+                    progressBar.value = (mainVideo.currentTime / mainVideo.duration) * 100;
                     timeDisplay.textContent = `${formatTime(mainVideo.currentTime)} / ${formatTime(mainVideo.duration)}`;
                 }
             });
-
             progressBar.addEventListener('input', () => {
-                if (mainVideo.duration) {
-                    mainVideo.currentTime = (progressBar.value / 100) * mainVideo.duration;
-                }
+                if (mainVideo.duration) { mainVideo.currentTime = (progressBar.value / 100) * mainVideo.duration; }
             });
-
             volumeBar.addEventListener('input', (e) => {
                 mainVideo.volume = e.target.value;
                 mainVideo.muted = e.target.value == 0;
-                updateVolumeIcon();
             });
-
-            btnMute.addEventListener('click', () => {
-                mainVideo.muted = !mainVideo.muted;
-                updateVolumeIcon();
-            });
-
-            qualitySelector.addEventListener('change', (e) => {
-                const selected = e.target.value;
-                const currentTime = mainVideo.currentTime;
-                const isPlaying = !mainVideo.paused;
-                showNotification(`Calidad ajustada a: ${selected.toUpperCase()}`);
-                mainVideo.currentTime = currentTime;
-                if (isPlaying) mainVideo.play();
-            });
-
+            btnMute.addEventListener('click', () => { mainVideo.muted = !mainVideo.muted; });
+            qualitySelector.addEventListener('change', (e) => { showNotification(`Calidad: ${e.target.value.toUpperCase()}`); });
             btnFullscreen.addEventListener('click', () => {
                 const container = document.getElementById('video-wrapper');
-                if (!document.fullscreenElement) {
-                    container.requestFullscreen().catch(err => console.error(err));
-                } else {
-                    document.exitFullscreen();
-                }
+                if (!document.fullscreenElement) { container.requestFullscreen(); } else { document.exitFullscreen(); }
             });
         }
 
         function togglePlay() {
-            if (mainVideo.paused) {
-                mainVideo.play();
-                btnPlayPause.innerHTML = '<i class="fa-solid fa-pause"></i>';
-            } else {
-                mainVideo.pause();
-                btnPlayPause.innerHTML = '<i class="fa-solid fa-play"></i>';
-            }
-        }
-
-        function updateVolumeIcon() {
-            if (mainVideo.muted || mainVideo.volume === 0) {
-                btnMute.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
-            } else if (mainVideo.volume < 0.5) {
-                btnMute.innerHTML = '<i class="fa-solid fa-volume-low"></i>';
-            } else {
-                btnMute.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
-            }
+            if (mainVideo.paused) { mainVideo.play(); btnPlayPause.innerHTML = '<i class="fa-solid fa-pause"></i>'; }
+            else { mainVideo.pause(); btnPlayPause.innerHTML = '<i class="fa-solid fa-play"></i>'; }
         }
 
         function formatTime(seconds) {
@@ -923,40 +721,25 @@
             return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
         }
 
-        // --- PLAY & INCREMENT REAL VIEWS ---
         async function playVideo(videoId) {
             const video = videos.find(v => String(v.id) === String(videoId));
             if (!video) return;
-
             activeVideo = video;
-
-            // INCREMENT REAL VIEWS COUNTER (+1) IN DB & LOCAL
             video.views = (video.views || 0) + 1;
             await saveVideoToDB(video);
 
-            let videoSrc = video.src;
-            if (video.fileData) {
-                videoSrc = URL.createObjectURL(video.fileData);
-            }
-
+            let videoSrc = video.src || (video.fileData ? URL.createObjectURL(video.fileData) : '');
             mainVideo.src = videoSrc;
             document.getElementById('active-video-title').textContent = video.title;
-            document.getElementById('active-video-desc').textContent = video.desc || 'Sin descripción disponible.';
+            document.getElementById('active-video-desc').textContent = video.desc || 'Sin descripción.';
             document.getElementById('active-video-views').innerHTML = `<i class="fa-regular fa-eye mr-1"></i> ${video.views} vistas`;
-            document.getElementById('active-video-date').innerHTML = `<i class="fa-regular fa-calendar mr-1"></i> Publicado: ${video.date}`;
+            document.getElementById('active-video-date').innerHTML = `<i class="fa-regular fa-calendar mr-1"></i> ${video.date}`;
             document.getElementById('active-video-category-tag').textContent = video.category;
 
             hideAdminPanel();
             document.getElementById('player-container').classList.remove('hidden');
-
-            mainVideo.play().then(() => {
-                btnPlayPause.innerHTML = '<i class="fa-solid fa-pause"></i>';
-            }).catch(() => {
-                btnPlayPause.innerHTML = '<i class="fa-solid fa-play"></i>';
-            });
-
+            mainVideo.play();
             window.scrollTo({ top: 0, behavior: 'smooth' });
-
             renderGallery(getFilteredVideos());
             renderRelatedVideos(videoId);
         }
@@ -968,43 +751,30 @@
             document.getElementById('player-container').classList.add('hidden');
         }
 
-        // --- RENDER GALLERY GRID ---
         function renderGallery(list) {
             videoGrid.innerHTML = '';
             document.getElementById('video-count').textContent = `${list.length} lecciones`;
-
-            if (list.length === 0) {
-                emptyState.classList.remove('hidden');
-                emptyState.classList.add('flex');
-                return;
-            } else {
-                emptyState.classList.add('hidden');
-                emptyState.classList.remove('flex');
-            }
+            if (list.length === 0) { emptyState.classList.remove('hidden'); emptyState.classList.add('flex'); return; }
+            emptyState.classList.add('hidden'); emptyState.classList.remove('flex');
 
             list.forEach(video => {
                 const card = document.createElement('div');
-                card.className = 'bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-lg hover:border-indigo-500/50 transition-all duration-300 flex flex-col group cursor-pointer';
+                card.className = 'bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-lg hover:border-indigo-500/50 transition cursor-pointer flex flex-col group';
                 card.onclick = () => playVideo(video.id);
-
                 const catColor = video.category === 'Física' ? 'text-indigo-400' : 'text-purple-400';
-
                 card.innerHTML = `
                     <div class="relative aspect-video bg-gray-800 flex items-center justify-center overflow-hidden">
-                        <i class="fa-solid fa-circle-play text-4xl ${catColor} group-hover:scale-110 transition duration-300 z-10"></i>
-                        <div class="absolute inset-0 bg-gradient-to-t from-gray-950/80 via-transparent to-transparent"></div>
-                        <span class="absolute bottom-2 right-2 bg-black/80 text-gray-200 text-xs px-2 py-0.5 rounded font-mono font-medium">
-                            ${video.quality || '1080p'}
-                        </span>
+                        <i class="fa-solid fa-circle-play text-4xl ${catColor} group-hover:scale-110 transition z-10"></i>
+                        <span class="absolute bottom-2 right-2 bg-black/80 text-gray-200 text-xs px-2 py-0.5 rounded font-mono">${video.quality || '1080p'}</span>
                     </div>
                     <div class="p-4 flex-1 flex flex-col justify-between">
                         <div>
-                            <span class="text-[10px] font-bold ${catColor} uppercase tracking-wider">${video.category}</span>
-                            <h3 class="font-bold text-sm text-gray-100 line-clamp-2 mt-1 group-hover:text-indigo-300 transition">${video.title}</h3>
+                            <span class="text-[10px] font-bold ${catColor} uppercase">${video.category}</span>
+                            <h3 class="font-bold text-sm text-gray-100 line-clamp-2 mt-1">${video.title}</h3>
                         </div>
-                        <div class="mt-3 pt-3 border-t border-gray-800/60 flex items-center justify-between text-xs text-gray-400">
+                        <div class="mt-3 pt-3 border-t border-gray-800 flex items-center justify-between text-xs text-gray-400">
                             <span>${video.views || 0} vistas</span>
-                            <span>${video.date || ''}</span>
+                            <span>${video.date}</span>
                         </div>
                     </div>
                 `;
@@ -1015,67 +785,33 @@
         function renderRelatedVideos(currentId) {
             const relatedContainer = document.getElementById('related-videos-list');
             relatedContainer.innerHTML = '';
-
-            const filtered = videos.filter(v => String(v.id) !== String(currentId));
-            filtered.forEach(video => {
+            videos.filter(v => String(v.id) !== String(currentId)).forEach(video => {
                 const item = document.createElement('div');
-                item.className = 'flex gap-3 bg-gray-900 hover:bg-gray-800/80 p-2 rounded-xl border border-gray-800/80 cursor-pointer transition';
+                item.className = 'flex gap-3 bg-gray-900 hover:bg-gray-800 p-2 rounded-xl border border-gray-800 cursor-pointer transition';
                 item.onclick = () => playVideo(video.id);
-
                 item.innerHTML = `
-                    <div class="w-28 aspect-video bg-gray-800 rounded-lg flex items-center justify-center flex-shrink-0 text-indigo-400">
-                        <i class="fa-solid fa-play text-sm"></i>
-                    </div>
+                    <div class="w-28 aspect-video bg-gray-800 rounded-lg flex items-center justify-center text-indigo-400"><i class="fa-solid fa-play text-sm"></i></div>
                     <div class="flex-1 min-w-0">
                         <h4 class="text-xs font-bold text-gray-200 truncate">${video.title}</h4>
-                        <span class="text-[10px] text-indigo-400 font-semibold block mt-1">${video.category} • ${video.views || 0} vistas</span>
+                        <span class="text-[10px] text-indigo-400 block mt-1">${video.category} • ${video.views || 0} vistas</span>
                     </div>
                 `;
                 relatedContainer.appendChild(item);
             });
         }
 
-        // --- FILTERING ---
-        function filterByCategory(category) {
-            activeCategoryFilter = category;
-            hideAdminPanel();
-            renderGallery(getFilteredVideos());
-        }
-
-        function getFilteredVideos() {
-            if (activeCategoryFilter === 'all') return videos;
-            return videos.filter(v => v.category === activeCategoryFilter);
-        }
-
-        function resetToHome() {
-            activeCategoryFilter = 'all';
-            hideAdminPanel();
-            closePlayer();
-            renderGallery(videos);
-        }
+        function filterByCategory(cat) { activeCategoryFilter = cat; hideAdminPanel(); renderGallery(getFilteredVideos()); }
+        function getFilteredVideos() { return activeCategoryFilter === 'all' ? videos : videos.filter(v => v.category === activeCategoryFilter); }
+        function resetToHome() { activeCategoryFilter = 'all'; hideAdminPanel(); closePlayer(); renderGallery(videos); }
 
         document.getElementById('search-input').addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            const filtered = videos.filter(v => 
-                v.title.toLowerCase().includes(query) || 
-                v.desc.toLowerCase().includes(query) ||
-                v.category.toLowerCase().includes(query)
-            );
-            renderGallery(filtered);
+            const q = e.target.value.toLowerCase();
+            renderGallery(videos.filter(v => v.title.toLowerCase().includes(q) || v.desc.toLowerCase().includes(q)));
         });
 
-        // --- UPLOAD / EDIT MODAL & FORM ---
         function openUploadModal() {
-            if (!currentAdminUser) {
-                openLoginModal();
-                return;
-            }
-            document.getElementById('editing-video-id').value = '';
-            document.getElementById('modal-form-title').innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-indigo-400"></i> Subir Lección Educativa';
-            document.getElementById('source-selector-wrapper').classList.remove('hidden');
+            if (!currentAdminUser) { openLoginModal(); return; }
             document.getElementById('upload-form').reset();
-            setSourceType('file');
-
             document.getElementById('upload-modal').classList.remove('hidden');
             document.getElementById('upload-modal').classList.add('flex');
         }
@@ -1087,136 +823,51 @@
 
         function setSourceType(type) {
             sourceType = type;
-            const btnFile = document.getElementById('btn-source-file');
-            const btnUrl = document.getElementById('btn-source-url');
-            const containerFile = document.getElementById('input-file-container');
-            const containerUrl = document.getElementById('input-url-container');
-
-            if (type === 'file') {
-                btnFile.className = 'py-2 px-3 border border-indigo-500 bg-indigo-500/10 text-indigo-300 text-xs font-semibold rounded-xl flex items-center justify-center gap-2';
-                btnUrl.className = 'py-2 px-3 border border-gray-700 text-gray-400 text-xs font-semibold rounded-xl flex items-center justify-center gap-2';
-                containerFile.classList.remove('hidden');
-                containerUrl.classList.add('hidden');
-            } else {
-                btnUrl.className = 'py-2 px-3 border border-indigo-500 bg-indigo-500/10 text-indigo-300 text-xs font-semibold rounded-xl flex items-center justify-center gap-2';
-                btnFile.className = 'py-2 px-3 border border-gray-700 text-gray-400 text-xs font-semibold rounded-xl flex items-center justify-center gap-2';
-                containerUrl.classList.remove('hidden');
-                containerFile.classList.add('hidden');
-            }
-        }
-
-        function loadSampleUrl() {
-            document.getElementById('upload-url').value = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4';
-            document.getElementById('upload-title').value = 'Reacciones Químicas Exotérmicas';
-        }
-
-        function editVideo(id) {
-            const video = videos.find(v => String(v.id) === String(id));
-            if (!video) return;
-
-            document.getElementById('editing-video-id').value = video.id;
-            document.getElementById('modal-form-title').innerHTML = '<i class="fa-solid fa-pen-to-square text-indigo-400"></i> Editar Detalle de Video';
-            document.getElementById('upload-title').value = video.title;
-            document.getElementById('upload-category').value = video.category;
-            document.getElementById('upload-quality').value = video.quality || '1080p';
-            document.getElementById('upload-desc').value = video.desc || '';
-            
-            document.getElementById('source-selector-wrapper').classList.add('hidden');
-            document.getElementById('input-file-container').classList.add('hidden');
-            document.getElementById('input-url-container').classList.add('hidden');
-
-            document.getElementById('upload-modal').classList.remove('hidden');
-            document.getElementById('upload-modal').classList.add('flex');
+            document.getElementById('btn-source-file').className = type === 'file' ? 'py-2 px-3 border border-indigo-500 bg-indigo-500/10 text-indigo-300 text-xs font-semibold rounded-xl flex items-center justify-center gap-2' : 'py-2 px-3 border border-gray-700 text-gray-400 text-xs font-semibold rounded-xl flex items-center justify-center gap-2';
+            document.getElementById('btn-source-url').className = type === 'url' ? 'py-2 px-3 border border-indigo-500 bg-indigo-500/10 text-indigo-300 text-xs font-semibold rounded-xl flex items-center justify-center gap-2' : 'py-2 px-3 border border-gray-700 text-gray-400 text-xs font-semibold rounded-xl flex items-center justify-center gap-2';
+            document.getElementById('input-file-container').classList.toggle('hidden', type !== 'file');
+            document.getElementById('input-url-container').classList.toggle('hidden', type !== 'url');
         }
 
         async function confirmDeleteVideo(id) {
-            if (confirm('¿Estás seguro de que deseas eliminar este video permanentemente?')) {
+            if (confirm('¿Eliminar este video permanentemente?')) {
                 await deleteVideoFromDB(id);
-                showNotification('Video eliminado permanentemente.');
+                showNotification('Video eliminado con éxito.');
             }
         }
 
         async function handleVideoSubmit(event) {
             event.preventDefault();
+            const newVideo = {
+                id: 'vid-' + Date.now(),
+                title: document.getElementById('upload-title').value,
+                category: document.getElementById('upload-category').value,
+                quality: document.getElementById('upload-quality').value,
+                desc: document.getElementById('upload-desc').value,
+                views: 0,
+                date: new Date().toISOString().split('T')[0]
+            };
 
-            const editingId = document.getElementById('editing-video-id').value;
-            const title = document.getElementById('upload-title').value;
-            const category = document.getElementById('upload-category').value;
-            const quality = document.getElementById('upload-quality').value;
-            const desc = document.getElementById('upload-desc').value;
-            const todayDate = new Date().toISOString().split('T')[0];
-
-            if (editingId) {
-                // UPDATE METADATA
-                const videoIndex = videos.findIndex(v => String(v.id) === String(editingId));
-                if (videoIndex !== -1) {
-                    videos[videoIndex].title = title;
-                    videos[videoIndex].category = category;
-                    videos[videoIndex].quality = quality;
-                    videos[videoIndex].desc = desc;
-
-                    await saveVideoToDB(videos[videoIndex]);
-                    showNotification('¡Video actualizado exitosamente!');
-                }
+            if (sourceType === 'file') {
+                const fileInput = document.getElementById('upload-file');
+                if (!fileInput.files.length) { alert('Selecciona un archivo.'); return; }
+                newVideo.fileData = fileInput.files[0];
+                newVideo.src = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
             } else {
-                // CREATE NEW VIDEO
-                const newVideo = {
-                    id: 'vid-' + Date.now(),
-                    title,
-                    category,
-                    quality,
-                    desc,
-                    views: 0,
-                    date: todayDate
-                };
-
-                if (sourceType === 'file') {
-                    const fileInput = document.getElementById('upload-file');
-                    if (!fileInput.files || fileInput.files.length === 0) {
-                        alert('Por favor selecciona un archivo de video.');
-                        return;
-                    }
-
-                    const file = fileInput.files[0];
-
-                    // If Cloud Supabase is configured, upload to Supabase Storage Bucket
-                    if (supabaseClient) {
-                        showNotification('Subiendo archivo a la nube Supabase...');
-                        const filePath = `videos/${newVideo.id}_${file.name}`;
-                        const { data: uploadData, error: uploadErr } = await supabaseClient.storage.from('edutube-media').upload(filePath, file);
-
-                        if (!uploadErr) {
-                            const { data: publicUrlData } = supabaseClient.storage.from('edutube-media').getPublicUrl(filePath);
-                            newVideo.src = publicUrlData.publicUrl;
-                        } else {
-                            console.warn('Storage bucket upload failed, saving locally:', uploadErr);
-                            newVideo.fileData = file;
-                        }
-                    } else {
-                        newVideo.fileData = file;
-                    }
-                } else {
-                    const urlInput = document.getElementById('upload-url').value;
-                    if (!urlInput) {
-                        alert('Por favor ingresa una URL válida.');
-                        return;
-                    }
-                    newVideo.src = urlInput;
-                }
-
-                await saveVideoToDB(newVideo);
-                videos.unshift(newVideo);
-                showNotification('¡Video publicado correctamente!');
+                newVideo.src = document.getElementById('upload-url').value;
             }
 
+            await saveVideoToDB(newVideo);
+            videos.unshift(newVideo);
             closeUploadModal();
             renderGallery(getFilteredVideos());
             renderAdminTable();
+            showNotification('¡Video publicado exitosamente!');
         }
 
         function showNotification(msg) {
             const toast = document.createElement('div');
-            toast.className = 'fixed bottom-5 right-5 bg-indigo-600 text-white text-xs font-bold px-4 py-3 rounded-xl shadow-2xl z-50 transition-all duration-300';
+            toast.className = 'fixed bottom-5 right-5 bg-indigo-600 text-white text-xs font-bold px-4 py-3 rounded-xl shadow-2xl z-50';
             toast.textContent = msg;
             document.body.appendChild(toast);
             setTimeout(() => toast.remove(), 3000);

@@ -95,8 +95,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2 flex flex-col gap-4">
                         <div id="video-wrapper" class="relative group bg-black rounded-2xl overflow-hidden shadow-2xl aspect-video flex items-center justify-center">
-                            <video id="main-video" controls class="w-full h-full object-contain hidden"></video>
-                            <div id="iframe-container" class="w-full h-full hidden"></div>
+                            <video id="main-video" controls class="w-full h-full object-contain"></video>
                         </div>
 
                         <!-- VIDEO INFO -->
@@ -228,10 +227,10 @@
             </div>
             <form id="upload-form" onsubmit="handleVideoSubmit(event)" class="p-6 space-y-4">
                 <div>
-                    <label class="block text-xs font-medium text-gray-300 mb-1">Enlace del Video (YouTube o Enlace Directo MP4) *</label>
-                    <input type="url" id="upload-url" required placeholder="https://www.youtube.com/watch?v=..." 
-                           class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none">
-                    <span class="text-[10px] text-gray-400 mt-1 block">Pega el link de YouTube o un archivo MP4 directo para que se sincronice en todos lados.</span>
+                    <label class="block text-xs font-medium text-gray-300 mb-1">Seleccionar Archivo de Video (Galería / PC) *</label>
+                    <input type="file" id="upload-file" accept="video/mp4,video/webm,video/quicktime" required
+                           class="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 bg-gray-800 rounded-xl border border-gray-700 cursor-pointer">
+                    <span class="text-[10px] text-gray-400 mt-1 block">El video se sincronizará automáticamente para ti y todos tus compañeros.</span>
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-gray-300 mb-1">Título de la Lección *</label>
@@ -288,7 +287,6 @@
         let activeCategoryFilter = 'all';
 
         const mainVideo = document.getElementById('main-video');
-        const iframeContainer = document.getElementById('iframe-container');
         const videoGrid = document.getElementById('video-grid');
         const emptyState = document.getElementById('empty-state');
 
@@ -431,16 +429,6 @@
             });
         }
 
-        function getEmbedUrl(url) {
-            if (!url) return '';
-            let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            let match = url.match(regExp);
-            if (match && match[2].length === 11) {
-                return 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1';
-            }
-            return url;
-        }
-
         async function playVideo(videoId) {
             const video = videos.find(v => String(v.id) === String(videoId));
             if (!video) return;
@@ -448,21 +436,7 @@
             video.views = (Number(video.views) || 0) + 1;
             await saveVideoToDB(video);
 
-            const formattedSrc = getEmbedUrl(video.src);
-
-            if (formattedSrc.includes('youtube.com/embed')) {
-                mainVideo.classList.add('hidden');
-                mainVideo.pause();
-                iframeContainer.classList.remove('hidden');
-                iframeContainer.innerHTML = `<iframe src="${formattedSrc}" class="w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-            } else {
-                iframeContainer.classList.add('hidden');
-                iframeContainer.innerHTML = '';
-                mainVideo.classList.remove('hidden');
-                mainVideo.src = video.src;
-                mainVideo.play();
-            }
-
+            mainVideo.src = video.fileDataUrl || video.src;
             document.getElementById('active-video-title').textContent = video.title;
             document.getElementById('active-video-desc').textContent = video.desc || 'Sin descripción.';
             document.getElementById('active-video-views').innerHTML = `<i class="fa-regular fa-eye mr-1"></i> ${video.views} vistas`;
@@ -471,6 +445,7 @@
 
             hideAdminPanel();
             document.getElementById('player-container').classList.remove('hidden');
+            mainVideo.play();
             window.scrollTo({ top: 0, behavior: 'smooth' });
             renderGallery(getFilteredVideos());
             renderRelatedVideos(videoId);
@@ -479,7 +454,6 @@
         function closePlayer() {
             mainVideo.pause();
             mainVideo.src = '';
-            iframeContainer.innerHTML = '';
             activeVideo = null;
             document.getElementById('player-container').classList.add('hidden');
         }
@@ -563,23 +537,34 @@
 
         async function handleVideoSubmit(event) {
             event.preventDefault();
-            const newVideo = {
-                id: 'vid-' + Date.now(),
-                title: document.getElementById('upload-title').value,
-                category: document.getElementById('upload-category').value,
-                quality: document.getElementById('upload-quality').value,
-                desc: document.getElementById('upload-desc').value,
-                src: document.getElementById('upload-url').value,
-                views: 0,
-                date: new Date().toISOString().split('T')[0]
+            const fileInput = document.getElementById('upload-file');
+            if (!fileInput.files.length) { alert('Selecciona un archivo de video.'); return; }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = async function(e) {
+                const newVideo = {
+                    id: 'vid-' + Date.now(),
+                    title: document.getElementById('upload-title').value,
+                    category: document.getElementById('upload-category').value,
+                    quality: document.getElementById('upload-quality').value,
+                    desc: document.getElementById('upload-desc').value,
+                    fileDataUrl: e.target.result,
+                    src: '',
+                    views: 0,
+                    date: new Date().toISOString().split('T')[0]
+                };
+
+                await saveVideoToDB(newVideo);
+                videos.unshift(newVideo);
+                closeUploadModal();
+                renderGallery(getFilteredVideos());
+                renderAdminTable();
+                showNotification('¡Video publicado y sincronizado!');
             };
 
-            await saveVideoToDB(newVideo);
-            videos.unshift(newVideo);
-            closeUploadModal();
-            renderGallery(getFilteredVideos());
-            renderAdminTable();
-            showNotification('¡Video publicado y sincronizado!');
+            reader.readAsDataURL(file);
         }
 
         function showNotification(msg) {

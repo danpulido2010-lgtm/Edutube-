@@ -6,49 +6,17 @@
     <title>EduTube - Plataforma Educativa de Video</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Supabase JS Client for Cloud Persistence -->
+    <!-- Supabase JS Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
         ::-webkit-scrollbar-thumb { background: rgba(100,100,100,0.4); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(100,100,100,0.6); }
-        
-        input[type="range"]::-webkit-slider-thumb {
-            appearance: none;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #6366f1;
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
-        input[type="range"]:hover::-webkit-slider-thumb {
-            transform: scale(1.3);
-        }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -64,7 +32,7 @@
             
             <!-- BRAND LOGO -->
             <div class="flex items-center gap-3 cursor-pointer select-none" onclick="resetToHome()">
-                <svg class="w-10 h-10 drop-shadow-[0_0_12px_rgba(99,102,241,0.5)] flex-shrink-0" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="w-10 h-10 drop-shadow-[0_0_12px_rgba(99,102,241,0.5)] flex-shrink-0" viewBox="0 0 100 100" fill="none">
                     <defs>
                         <linearGradient id="logoGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stop-color="#9333ea"/>
@@ -77,20 +45,13 @@
                         </linearGradient>
                     </defs>
                     <path d="M 20 28 Q 50 18 50 32 Q 50 18 80 28 L 80 34 Q 50 24 50 38 Q 50 24 20 34 Z" fill="url(#logoGrad2)" opacity="0.9"/>
-                    <path d="M 25 24 Q 50 14 50 28 Q 50 14 75 24" stroke="#d8b4fe" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-                    <path d="M 22 26 L 15 36 M 15 36 A 2 2 0 1 0 15 40 A 2 2 0 1 0 15 36" stroke="#f472b6" stroke-width="2" stroke-linecap="round" fill="none"/>
                     <path d="M 18 36 Q 50 28 82 36 Q 86 64 50 90 Q 14 64 18 36 Z" fill="url(#logoGrad1)"/>
                     <path d="M 23 40 Q 50 33 77 40 Q 80 62 50 83 Q 20 62 23 40 Z" fill="#0f172a"/>
                     <path d="M 40 45 L 68 57 L 40 69 Z" fill="url(#logoGrad1)"/>
-                    <path d="M 50 63 C 46 63 44 60 45 57 C 46 54 48 53 50 49 C 52 53 55 55 55 58 C 55 61 53 63 50 63 Z" fill="#38bdf8"/>
-                    <path d="M 50 62 C 48 62 47 60 48 58 C 49 56 50 55 50 53 C 51 55 53 57 52 59 C 52 61 51 62 50 62 Z" fill="#f43f5e"/>
                 </svg>
-
-                <div class="flex flex-col justify-center">
-                    <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent leading-none">
-                        EduTube
-                    </span>
-                </div>
+                <span class="text-2xl font-extrabold bg-gradient-to-r from-purple-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent">
+                    EduTube
+                </span>
             </div>
         </div>
 
@@ -98,7 +59,7 @@
         <div class="flex-1 max-w-2xl hidden md:flex items-center">
             <div class="relative w-full">
                 <input type="text" id="search-input" placeholder="Buscar lecciones de Física, Química..." 
-                    class="w-full bg-gray-800 border border-gray-700 text-sm rounded-l-full py-2 px-4 pl-10 text-gray-200 placeholder-gray-400 focus:outline-none focus:border-indigo-500">
+                    class="w-full bg-gray-800 border border-gray-700 text-sm rounded-l-full py-2 px-4 pl-10 text-gray-200 placeholder-gray-400 focus:outline-none">
                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-2.5 text-gray-400 text-sm"></i>
             </div>
             <button id="btn-search" class="bg-gray-800 border border-l-0 border-gray-700 hover:bg-gray-700 px-5 py-2 rounded-r-full text-gray-300">
@@ -114,16 +75,16 @@
             </button>
 
             <!-- CLOUD STATUS INDICATOR -->
-            <button onclick="openCloudConfigModal()" id="cloud-status-badge" class="flex items-center gap-1.5 bg-gray-800 border border-gray-700 hover:bg-gray-700 px-3 py-1 rounded-full text-xs font-semibold text-gray-400" title="Configuración de la nube">
-                <span class="w-2 h-2 rounded-full bg-amber-400" id="cloud-dot"></span>
-                <span id="cloud-status-text">Local / Offline</span>
-            </button>
+            <div class="flex items-center gap-1.5 bg-gray-800 border border-gray-700 px-3 py-1 rounded-full text-xs font-semibold text-gray-400">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span>Nube Activa</span>
+            </div>
 
             <!-- AUTHENTICATED USER BADGE -->
             <div id="user-badge-container" class="hidden flex items-center gap-2 bg-gray-800 border border-gray-700 px-3 py-1 rounded-full text-xs">
                 <i class="fa-solid fa-user-shield text-indigo-400"></i>
                 <span id="logged-user-name" class="font-semibold text-gray-200"></span>
-                <button onclick="logoutAdmin()" class="text-gray-400 hover:text-red-400 ml-1" title="Cerrar sesión">
+                <button onclick="logoutAdmin()" class="text-gray-400 hover:text-red-400 ml-1">
                     <i class="fa-solid fa-power-off"></i>
                 </button>
             </div>
@@ -142,14 +103,6 @@
             <button onclick="filterByCategory('Química')" class="sidebar-item flex items-center gap-4 px-3 py-2.5 rounded-xl hover:bg-gray-800 text-sm font-medium text-gray-400 hover:text-gray-200 transition">
                 <i class="fa-solid fa-flask text-purple-400 text-lg"></i> Química
             </button>
-            <hr class="border-gray-800 my-2">
-            <div class="px-3 py-1 text-xs font-semibold text-gray-500 uppercase tracking-wider">Administración</div>
-            <button onclick="handleAdminButtonClick()" class="sidebar-item flex items-center gap-4 px-3 py-2.5 rounded-xl hover:bg-gray-800 text-sm font-medium text-gray-400 hover:text-gray-200 transition">
-                <i class="fa-solid fa-sliders text-indigo-400 text-lg"></i> Panel Admin
-            </button>
-            <button onclick="openCloudConfigModal()" class="sidebar-item flex items-center gap-4 px-3 py-2.5 rounded-xl hover:bg-gray-800 text-sm font-medium text-gray-400 hover:text-gray-200 transition">
-                <i class="fa-solid fa-cloud text-cyan-400 text-lg"></i> Conectar Nube
-            </button>
         </aside>
 
         <!-- MAIN CONTENT AREA -->
@@ -160,39 +113,10 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2 flex flex-col gap-4">
                         <div id="video-wrapper" class="relative group bg-black rounded-2xl overflow-hidden shadow-2xl aspect-video flex items-center justify-center">
-                            <video id="main-video" class="w-full h-full object-contain cursor-pointer"></video>
-
-                            <!-- CUSTOM CONTROLS -->
-                            <div id="custom-controls" class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                                <div class="relative w-full flex items-center group/slider mb-3">
-                                    <input type="range" id="progress-bar" min="0" max="100" value="0" step="0.1"
-                                           class="w-full h-1.5 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-indigo-500 focus:outline-none">
-                                </div>
-                                <div class="flex items-center justify-between text-white gap-4">
-                                    <div class="flex items-center gap-3 sm:gap-4">
-                                        <button id="btn-play-pause" class="hover:text-indigo-400 transition text-xl focus:outline-none">
-                                            <i class="fa-solid fa-play"></i>
-                                        </button>
-                                        <button id="btn-mute" class="hover:text-indigo-400 transition text-lg focus:outline-none">
-                                            <i class="fa-solid fa-volume-high"></i>
-                                        </button>
-                                        <input type="range" id="volume-bar" min="0" max="1" step="0.05" value="1" 
-                                               class="w-16 sm:w-20 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer accent-indigo-500">
-                                        <span id="time-display" class="text-xs sm:text-sm text-gray-300 font-mono ml-2">00:00 / 00:00</span>
-                                    </div>
-                                    <div class="flex items-center gap-3 sm:gap-4">
-                                        <select id="quality-selector" class="bg-gray-800/85 hover:bg-gray-700 text-white text-xs font-semibold rounded-lg px-2.5 py-1.5 border border-gray-600 focus:outline-none cursor-pointer">
-                                            <option value="auto">Calidad: Auto</option>
-                                            <option value="1080p">1080p HD</option>
-                                            <option value="720p">720p HD</option>
-                                            <option value="480p">480p SD</option>
-                                        </select>
-                                        <button id="btn-fullscreen" class="hover:text-indigo-400 transition text-lg focus:outline-none">
-                                            <i class="fa-solid fa-expand"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- Reproductor nativo para MP4 -->
+                            <video id="main-video" controls class="w-full h-full object-contain hidden"></video>
+                            <!-- Contenedor iframe para YouTube u otros embeds -->
+                            <div id="iframe-container" class="w-full h-full hidden"></div>
                         </div>
 
                         <!-- VIDEO INFO -->
@@ -205,7 +129,7 @@
                                     <span id="active-video-category-tag" class="bg-indigo-500/20 text-indigo-300 px-2.5 py-0.5 rounded-full text-xs font-semibold">Física</span>
                                 </div>
                                 <button onclick="closePlayer()" class="flex items-center gap-1.5 bg-gray-800 hover:bg-gray-700 px-3.5 py-1.5 rounded-full text-xs font-medium text-gray-200 transition">
-                                    <i class="fa-solid fa-xmark"></i> Cerrar Reproductor
+                                    <i class="fa-solid fa-xmark"></i> Cerrar
                                 </button>
                             </div>
                             <p id="active-video-desc" class="text-sm text-gray-300 whitespace-pre-line leading-relaxed">Sin descripción disponible.</p>
@@ -272,7 +196,6 @@
                                     <th class="py-3 px-4">Título</th>
                                     <th class="py-3 px-4">Categoría</th>
                                     <th class="py-3 px-4">Fecha</th>
-                                    <th class="py-3 px-4">Vistas Reales</th>
                                     <th class="py-3 px-4 text-right">Acciones</th>
                                 </tr>
                             </thead>
@@ -294,7 +217,7 @@
             <form onsubmit="handleLoginSubmit(event)" class="p-6 space-y-4">
                 <div>
                     <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Usuario de Administrador</label>
-                    <select id="login-user-select" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-sm text-gray-200 focus:outline-none focus:border-indigo-500">
+                    <select id="login-user-select" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-sm text-gray-200 focus:outline-none">
                         <option value="ISABELLA">ISABELLA</option>
                         <option value="PULIDO">PULIDO</option>
                         <option value="CHOCO">CHOCO</option>
@@ -303,10 +226,10 @@
                 <div>
                     <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Contraseña</label>
                     <input type="password" id="login-password" required placeholder="••••••••" 
-                           class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-sm text-gray-200 focus:outline-none focus:border-indigo-500">
+                           class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-sm text-gray-200 focus:outline-none">
                 </div>
                 <div id="login-error-msg" class="hidden text-xs text-red-400 bg-red-950/40 border border-red-800/50 p-3 rounded-xl">
-                    Contraseña incorrecta. Verifique e intente de nuevo.
+                    Contraseña incorrecta.
                 </div>
                 <div class="pt-2 flex justify-end gap-3">
                     <button type="button" onclick="closeLoginModal()" class="px-4 py-2 rounded-xl text-sm font-medium text-gray-400 hover:bg-gray-800">Cancelar</button>
@@ -316,40 +239,24 @@
         </div>
     </div>
 
-    <!-- MODAL FOR UPLOADING / EDITING VIDEOS -->
+    <!-- MODAL FOR UPLOADING VIDEOS -->
     <div id="upload-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
         <div class="bg-gray-900 border border-gray-800 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl">
             <div class="px-6 py-4 border-b border-gray-800 flex justify-between items-center">
-                <h3 id="modal-form-title" class="font-bold text-lg text-gray-100">Subir Lección Educativa</h3>
+                <h3 class="font-bold text-lg text-gray-100">Subir Lección Educativa</h3>
                 <button onclick="closeUploadModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <form id="upload-form" onsubmit="handleVideoSubmit(event)" class="p-6 space-y-4">
-                <input type="hidden" id="editing-video-id" value="">
-                <div id="source-selector-wrapper">
-                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-2">Origen del Video</label>
-                    <div class="grid grid-cols-2 gap-3 mb-3">
-                        <button type="button" id="btn-source-file" onclick="setSourceType('file')" class="py-2 px-3 border border-indigo-500 bg-indigo-500/10 text-indigo-300 text-xs font-semibold rounded-xl flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-file-video"></i> Archivo Video
-                        </button>
-                        <button type="button" id="btn-source-url" onclick="setSourceType('url')" class="py-2 px-3 border border-gray-700 text-gray-400 text-xs font-semibold rounded-xl flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-link"></i> URL Pública (MP4)
-                        </button>
-                    </div>
-                </div>
-                <div id="input-file-container">
-                    <label class="block text-xs font-medium text-gray-300 mb-1">Archivo de Video (MP4 / WebM)</label>
-                    <input type="file" id="upload-file" accept="video/mp4,video/webm" 
-                           class="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 bg-gray-800 rounded-xl border border-gray-700 cursor-pointer">
-                </div>
-                <div id="input-url-container" class="hidden">
-                    <label class="block text-xs font-medium text-gray-300 mb-1">URL del Video (MP4 direct link)</label>
-                    <input type="url" id="upload-url" placeholder="https://ejemplo.com/video.mp4" 
-                           class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500">
+                <div>
+                    <label class="block text-xs font-medium text-gray-300 mb-1">Enlace del Video (YouTube o MP4 directo) *</label>
+                    <input type="url" id="upload-url" required placeholder="https://www.youtube.com/watch?v=..." 
+                           class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none">
+                    <span class="text-[10px] text-gray-400 mt-1 block">Puedes pegar enlaces normales de YouTube o enlaces directos MP4. ¡Ambos funcionarán perfectamente!</span>
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-gray-300 mb-1">Título de la Lección *</label>
                     <input type="text" id="upload-title" required placeholder="Ej. Leyes de Newton" 
-                           class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500">
+                           class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none">
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
@@ -375,63 +282,23 @@
                 </div>
                 <div class="pt-2 flex justify-end gap-3">
                     <button type="button" onclick="closeUploadModal()" class="px-4 py-2 rounded-xl text-sm font-medium text-gray-400 hover:bg-gray-800">Cancelar</button>
-                    <button type="submit" class="px-5 py-2 rounded-xl text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white">Guardar Video</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl text-sm font-medium bg-indigo-600 hover:bg-indigo-700 text-white">Publicar Video</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- MODAL FOR CLOUD CONFIGURATION -->
-    <div id="cloud-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl">
-            <div class="px-6 py-4 border-b border-gray-800 flex justify-between items-center">
-                <h3 class="font-bold text-lg text-gray-100 flex items-center gap-2">
-                    <i class="fa-solid fa-cloud text-cyan-400"></i> Conectar Nube (Supabase)
-                </h3>
-                <button onclick="closeCloudConfigModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <div class="p-6 space-y-4">
-                <p class="text-xs text-gray-300">Ingresa tus credenciales de Supabase para sincronización online:</p>
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Supabase Project URL</label>
-                    <input type="text" id="supabase-url-input" placeholder="https://xyz.supabase.co" 
-                           class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Supabase Anon / Public Key</label>
-                    <input type="password" id="supabase-key-input" placeholder="sb_publishable_..." 
-                           class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none">
-                </div>
-                <div class="pt-2 flex justify-between items-center">
-                    <button type="button" onclick="clearSupabaseConfig()" class="text-xs text-red-400 hover:underline">Desconectar</button>
-                    <div class="flex gap-2">
-                        <button type="button" onclick="closeCloudConfigModal()" class="px-4 py-2 rounded-xl text-sm font-medium text-gray-400 hover:bg-gray-800">Cancelar</button>
-                        <button type="button" onclick="saveSupabaseConfig()" class="px-5 py-2 rounded-xl text-sm font-medium bg-cyan-600 hover:bg-cyan-700 text-white">Guardar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- SCRIPT ENGINE -->
     <script>
-        const DB_NAME = 'EduTubePhysChemDB';
-        const DB_VERSION = 1;
-        let db = null;
+        const SUPABASE_URL = "https://cprlrxviozwhytlxrsl.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_vEnmD..."; 
+        
         let supabaseClient = null;
-
-        function initDB() {
-            return new Promise((resolve, reject) => {
-                const request = indexedDB.open(DB_NAME, DB_VERSION);
-                request.onupgradeneeded = (e) => {
-                    const database = e.target.result;
-                    if (!database.objectStoreNames.contains('videos')) {
-                        database.createObjectStore('videos', { keyPath: 'id' });
-                    }
-                };
-                request.onsuccess = (e) => { db = e.target.result; resolve(db); };
-                request.onerror = (e) => reject(e.target.error);
-            });
+        if (window.supabase) {
+            try {
+                const keyToUse = localStorage.getItem('edutube_sb_key') || SUPABASE_KEY;
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, keyToUse);
+            } catch (e) { console.error("Error iniciando Supabase:", e); }
         }
 
         const ALLOWED_ADMINS = ['ISABELLA', 'PULIDO', 'CHOCO'];
@@ -439,151 +306,49 @@
         let currentAdminUser = null;
         let videos = [];
         let activeVideo = null;
-        let sourceType = 'file';
         let activeCategoryFilter = 'all';
 
         const mainVideo = document.getElementById('main-video');
-        const btnPlayPause = document.getElementById('btn-play-pause');
-        const btnMute = document.getElementById('btn-mute');
-        const progressBar = document.getElementById('progress-bar');
-        const volumeBar = document.getElementById('volume-bar');
-        const timeDisplay = document.getElementById('time-display');
-        const btnFullscreen = document.getElementById('btn-fullscreen');
-        const qualitySelector = document.getElementById('quality-selector');
+        const iframeContainer = document.getElementById('iframe-container');
         const videoGrid = document.getElementById('video-grid');
         const emptyState = document.getElementById('empty-state');
 
         window.addEventListener('DOMContentLoaded', async () => {
-            try {
-                await initDB();
-                initSupabaseIfConfigured();
-                await loadAllVideos();
-            } catch (err) {
-                console.error(err);
-            }
-            setupPlayerEvents();
+            try { indexedDB.deleteDatabase('EduTubePhysChemDB'); } catch(e){}
+            await loadAllVideos();
         });
 
-        function initSupabaseIfConfigured() {
-            const savedUrl = localStorage.getItem('edutube_sb_url');
-            const savedKey = localStorage.getItem('edutube_sb_key');
-            if (savedUrl && savedKey && window.supabase) {
-                try {
-                    supabaseClient = window.supabase.createClient(savedUrl, savedKey);
-                    document.getElementById('cloud-dot').className = 'w-2 h-2 rounded-full bg-emerald-400';
-                    document.getElementById('cloud-status-text').textContent = 'Nube Conectada';
-                } catch (e) { console.error(e); }
-            }
-        }
-
-        function openCloudConfigModal() {
-            document.getElementById('supabase-url-input').value = localStorage.getItem('edutube_sb_url') || '';
-            document.getElementById('supabase-key-input').value = localStorage.getItem('edutube_sb_key') || '';
-            document.getElementById('cloud-modal').classList.remove('hidden');
-            document.getElementById('cloud-modal').classList.add('flex');
-        }
-
-        function closeCloudConfigModal() {
-            document.getElementById('cloud-modal').classList.add('hidden');
-            document.getElementById('cloud-modal').classList.remove('flex');
-        }
-
-        function saveSupabaseConfig() {
-            const url = document.getElementById('supabase-url-input').value.trim();
-            const key = document.getElementById('supabase-key-input').value.trim();
-            if (url && key) {
-                localStorage.setItem('edutube_sb_url', url);
-                localStorage.setItem('edutube_sb_key', key);
-                initSupabaseIfConfigured();
-                loadAllVideos();
-                closeCloudConfigModal();
-                showNotification('¡Nube conectada correctamente!');
-            }
-        }
-
-        function clearSupabaseConfig() {
-            localStorage.removeItem('edutube_sb_url');
-            localStorage.removeItem('edutube_sb_key');
-            supabaseClient = null;
-            document.getElementById('cloud-dot').className = 'w-2 h-2 rounded-full bg-amber-400';
-            document.getElementById('cloud-status-text').textContent = 'Local / Offline';
-            closeCloudConfigModal();
-            loadAllVideos();
-            showNotification('Modo local activado.');
-        }
-
         async function loadAllVideos() {
-            let cloudVideos = [];
             if (supabaseClient) {
                 try {
                     const { data, error } = await supabaseClient.from('videos').select('*');
-                    if (!error && data) cloudVideos = data;
+                    if (!error && data) {
+                        videos = data;
+                        renderGallery(getFilteredVideos());
+                        renderAdminTable();
+                        return;
+                    }
                 } catch (e) { console.warn(e); }
             }
-
-            return new Promise((resolve) => {
-                const tx = db.transaction('videos', 'readwrite');
-                const store = tx.objectStore('videos');
-                const req = store.getAll();
-                req.onsuccess = async () => {
-                    let localVideos = req.result || [];
-                    if (cloudVideos.length > 0) {
-                        videos = cloudVideos;
-                    } else if (localVideos.length === 0) {
-                        videos = [
-                            {
-                                id: 'demo-phys-1',
-                                title: 'Movimiento Rectilíneo Uniformemente Variado (MRUV)',
-                                category: 'Física',
-                                quality: '1080p',
-                                views: 5,
-                                date: new Date().toISOString().split('T')[0],
-                                desc: 'Ecuaciones de posición, velocidad y aceleración.',
-                                src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
-                            }
-                        ];
-                        for (const vid of videos) { await saveVideoToDB(vid); }
-                    } else {
-                        videos = localVideos;
-                    }
-                    renderGallery(getFilteredVideos());
-                    renderAdminTable();
-                    resolve();
-                };
-            });
+            videos = [];
+            renderGallery(getFilteredVideos());
+            renderAdminTable();
         }
 
         async function saveVideoToDB(videoObj) {
             if (supabaseClient) {
                 try {
-                    const cloudRecord = { ...videoObj };
-                    delete cloudRecord.fileData;
-                    await supabaseClient.from('videos').upsert([cloudRecord]);
-                } catch (e) { console.error(e); }
+                    await supabaseClient.from('videos').upsert([videoObj]);
+                } catch (e) { console.error('Error guardando en la nube:', e); }
             }
-            return new Promise((resolve, reject) => {
-                const tx = db.transaction('videos', 'readwrite');
-                const store = tx.objectStore('videos');
-                const req = store.put(videoObj);
-                req.onsuccess = () => resolve();
-                req.onerror = () => reject(req.error);
-            });
         }
 
         async function deleteVideoFromDB(id) {
             if (supabaseClient) {
                 try {
                     await supabaseClient.from('videos').delete().eq('id', String(id));
-                } catch (e) { console.error(e); }
+                } catch (e) { console.error('Error borrando de la nube:', e); }
             }
-            await new Promise((resolve, reject) => {
-                const tx = db.transaction('videos', 'readwrite');
-                const store = tx.objectStore('videos');
-                const req = store.delete(id);
-                req.onsuccess = () => resolve();
-                req.onerror = () => reject(req.error);
-            });
-
             videos = videos.filter(v => String(v.id) !== String(id));
             if (activeVideo && String(activeVideo.id) === String(id)) { closePlayer(); }
             renderGallery(getFilteredVideos());
@@ -655,7 +420,7 @@
         }
 
         function hideAdminPanel() {
-            document.getElementById('admin-panel-section').classList.add('hidden');
+            document.getElementById('admin-panel-section').classList.remove('hidden');
             document.getElementById('category-pills').classList.remove('hidden');
             document.getElementById('gallery-section').classList.remove('hidden');
         }
@@ -676,7 +441,6 @@
                         <span class="px-2.5 py-1 text-xs rounded-full font-bold ${video.category === 'Física' ? 'bg-indigo-900/50 text-indigo-300' : 'bg-purple-900/50 text-purple-300'}">${video.category}</span>
                     </td>
                     <td class="py-3 px-4 text-xs font-mono text-gray-400">${video.date}</td>
-                    <td class="py-3 px-4 text-xs font-bold text-indigo-300">${video.views || 0} vistas</td>
                     <td class="py-3 px-4 text-right space-x-2">
                         <button onclick="confirmDeleteVideo('${video.id}')" class="text-red-400 hover:text-red-300 px-2.5 py-1 bg-gray-800 rounded-lg text-xs font-medium"><i class="fa-solid fa-trash"></i> Eliminar</button>
                     </td>
@@ -685,51 +449,39 @@
             });
         }
 
-        function setupPlayerEvents() {
-            btnPlayPause.addEventListener('click', togglePlay);
-            mainVideo.addEventListener('click', togglePlay);
-            mainVideo.addEventListener('timeupdate', () => {
-                if (mainVideo.duration) {
-                    progressBar.value = (mainVideo.currentTime / mainVideo.duration) * 100;
-                    timeDisplay.textContent = `${formatTime(mainVideo.currentTime)} / ${formatTime(mainVideo.duration)}`;
-                }
-            });
-            progressBar.addEventListener('input', () => {
-                if (mainVideo.duration) { mainVideo.currentTime = (progressBar.value / 100) * mainVideo.duration; }
-            });
-            volumeBar.addEventListener('input', (e) => {
-                mainVideo.volume = e.target.value;
-                mainVideo.muted = e.target.value == 0;
-            });
-            btnMute.addEventListener('click', () => { mainVideo.muted = !mainVideo.muted; });
-            qualitySelector.addEventListener('change', (e) => { showNotification(`Calidad: ${e.target.value.toUpperCase()}`); });
-            btnFullscreen.addEventListener('click', () => {
-                const container = document.getElementById('video-wrapper');
-                if (!document.fullscreenElement) { container.requestFullscreen(); } else { document.exitFullscreen(); }
-            });
-        }
-
-        function togglePlay() {
-            if (mainVideo.paused) { mainVideo.play(); btnPlayPause.innerHTML = '<i class="fa-solid fa-pause"></i>'; }
-            else { mainVideo.pause(); btnPlayPause.innerHTML = '<i class="fa-solid fa-play"></i>'; }
-        }
-
-        function formatTime(seconds) {
-            if (isNaN(seconds)) return '00:00';
-            const mins = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        function getEmbedUrl(url) {
+            if (!url) return '';
+            // Detectar enlaces de YouTube estándar o cortos
+            let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            let match = url.match(regExp);
+            if (match && match[2].length === 11) {
+                return 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1';
+            }
+            return url;
         }
 
         async function playVideo(videoId) {
             const video = videos.find(v => String(v.id) === String(videoId));
             if (!video) return;
             activeVideo = video;
-            video.views = (video.views || 0) + 1;
+            video.views = (Number(video.views) || 0) + 1;
             await saveVideoToDB(video);
 
-            let videoSrc = video.src || (video.fileData ? URL.createObjectURL(video.fileData) : '');
-            mainVideo.src = videoSrc;
+            const formattedSrc = getEmbedUrl(video.src);
+
+            if (formattedSrc.includes('youtube.com/embed')) {
+                mainVideo.classList.add('hidden');
+                mainVideo.pause();
+                iframeContainer.classList.remove('hidden');
+                iframeContainer.innerHTML = `<iframe src="${formattedSrc}" class="w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            } else {
+                iframeContainer.classList.add('hidden');
+                iframeContainer.innerHTML = '';
+                mainVideo.classList.remove('hidden');
+                mainVideo.src = video.src;
+                mainVideo.play();
+            }
+
             document.getElementById('active-video-title').textContent = video.title;
             document.getElementById('active-video-desc').textContent = video.desc || 'Sin descripción.';
             document.getElementById('active-video-views').innerHTML = `<i class="fa-regular fa-eye mr-1"></i> ${video.views} vistas`;
@@ -738,7 +490,6 @@
 
             hideAdminPanel();
             document.getElementById('player-container').classList.remove('hidden');
-            mainVideo.play();
             window.scrollTo({ top: 0, behavior: 'smooth' });
             renderGallery(getFilteredVideos());
             renderRelatedVideos(videoId);
@@ -747,6 +498,7 @@
         function closePlayer() {
             mainVideo.pause();
             mainVideo.src = '';
+            iframeContainer.innerHTML = '';
             activeVideo = null;
             document.getElementById('player-container').classList.add('hidden');
         }
@@ -821,14 +573,6 @@
             document.getElementById('upload-modal').classList.remove('flex');
         }
 
-        function setSourceType(type) {
-            sourceType = type;
-            document.getElementById('btn-source-file').className = type === 'file' ? 'py-2 px-3 border border-indigo-500 bg-indigo-500/10 text-indigo-300 text-xs font-semibold rounded-xl flex items-center justify-center gap-2' : 'py-2 px-3 border border-gray-700 text-gray-400 text-xs font-semibold rounded-xl flex items-center justify-center gap-2';
-            document.getElementById('btn-source-url').className = type === 'url' ? 'py-2 px-3 border border-indigo-500 bg-indigo-500/10 text-indigo-300 text-xs font-semibold rounded-xl flex items-center justify-center gap-2' : 'py-2 px-3 border border-gray-700 text-gray-400 text-xs font-semibold rounded-xl flex items-center justify-center gap-2';
-            document.getElementById('input-file-container').classList.toggle('hidden', type !== 'file');
-            document.getElementById('input-url-container').classList.toggle('hidden', type !== 'url');
-        }
-
         async function confirmDeleteVideo(id) {
             if (confirm('¿Eliminar este video permanentemente?')) {
                 await deleteVideoFromDB(id);
@@ -844,25 +588,17 @@
                 category: document.getElementById('upload-category').value,
                 quality: document.getElementById('upload-quality').value,
                 desc: document.getElementById('upload-desc').value,
+                src: document.getElementById('upload-url').value,
                 views: 0,
                 date: new Date().toISOString().split('T')[0]
             };
-
-            if (sourceType === 'file') {
-                const fileInput = document.getElementById('upload-file');
-                if (!fileInput.files.length) { alert('Selecciona un archivo.'); return; }
-                newVideo.fileData = fileInput.files[0];
-                newVideo.src = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
-            } else {
-                newVideo.src = document.getElementById('upload-url').value;
-            }
 
             await saveVideoToDB(newVideo);
             videos.unshift(newVideo);
             closeUploadModal();
             renderGallery(getFilteredVideos());
             renderAdminTable();
-            showNotification('¡Video publicado exitosamente!');
+            showNotification('¡Video publicado y sincronizado!');
         }
 
         function showNotification(msg) {

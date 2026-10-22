@@ -53,7 +53,7 @@
         <div class="flex items-center gap-2 sm:gap-3">
             <button onclick="handleAdminButtonClick()" class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-1.5 rounded-full text-sm font-medium transition shadow-sm">
                 <i class="fa-solid fa-plus"></i>
-                <span class="hidden sm:inline" id="btn-admin-text">Panel Admin</span>
+                <span class="hidden sm:inline" id="btn-admin-text">Subir Video</span>
             </button>
 
             <!-- CLOUD STATUS INDICATOR -->
@@ -66,7 +66,7 @@
             <div id="user-badge-container" class="hidden flex items-center gap-2 bg-gray-800 border border-gray-700 px-3 py-1 rounded-full text-xs">
                 <i class="fa-solid fa-user-shield text-indigo-400"></i>
                 <span id="logged-user-name" class="font-semibold text-gray-200"></span>
-                <button onclick="logoutAdmin()" class="text-gray-400 hover:text-red-400 ml-1">
+                <button onclick="logoutAdmin()" class="text-gray-400 hover:text-red-400 ml-1" title="Cerrar sesión">
                     <i class="fa-solid fa-power-off"></i>
                 </button>
             </div>
@@ -79,10 +79,10 @@
             <button onclick="filterByCategory('all')" class="flex items-center gap-4 px-3 py-2.5 rounded-xl hover:bg-gray-800 text-sm font-medium text-gray-200 transition">
                 <i class="fa-solid fa-house text-indigo-400 text-lg"></i> Todos
             </button>
-            <button onclick="filterByCategory('Física')" class="flex items-center gap-4 px-3 py-2.5 rounded-xl hover:bg-gray-800 text-sm font-medium text-gray-400 hover:text-gray-200 transition">
+            <button onclick="filterByCategory('Física')" class="flex items-center gap-4 px-3 py-2.5 rounded-xl hover:bg-gray-800 text-sm font-medium text-gray-400 transition">
                 <i class="fa-solid fa-bolt text-indigo-400 text-lg"></i> Física
             </button>
-            <button onclick="filterByCategory('Química')" class="flex items-center gap-4 px-3 py-2.5 rounded-xl hover:bg-gray-800 text-sm font-medium text-gray-400 hover:text-gray-200 transition">
+            <button onclick="filterByCategory('Química')" class="flex items-center gap-4 px-3 py-2.5 rounded-xl hover:bg-gray-800 text-sm font-medium text-gray-400 transition">
                 <i class="fa-solid fa-flask text-purple-400 text-lg"></i> Química
             </button>
         </aside>
@@ -95,8 +95,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2 flex flex-col gap-4">
                         <div id="video-wrapper" class="relative group bg-black rounded-2xl overflow-hidden shadow-2xl aspect-video flex items-center justify-center">
-                            <video id="main-video" controls class="w-full h-full object-contain hidden"></video>
-                            <div id="iframe-container" class="w-full h-full hidden"></div>
+                            <video id="main-video" controls class="w-full h-full object-contain"></video>
                         </div>
 
                         <!-- VIDEO INFO -->
@@ -143,7 +142,7 @@
                         <i class="fa-solid fa-atom"></i>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-300">No hay videos disponibles</h3>
-                    <p class="text-sm text-gray-500 max-w-sm mt-1">Usa el panel de administrador para publicar lecciones.</p>
+                    <p class="text-sm text-gray-500 max-w-sm mt-1">Inicia sesión como administrador para publicar lecciones.</p>
                 </div>
             </section>
 
@@ -209,7 +208,7 @@
                            class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2.5 text-sm text-gray-200 focus:outline-none">
                 </div>
                 <div id="login-error-msg" class="hidden text-xs text-red-400 bg-red-950/40 border border-red-800/50 p-3 rounded-xl">
-                    Contraseña incorrecta.
+                    Contraseña incorrecta. Verifique e intente de nuevo.
                 </div>
                 <div class="pt-2 flex justify-end gap-3">
                     <button type="button" onclick="closeLoginModal()" class="px-4 py-2 rounded-xl text-sm font-medium text-gray-400 hover:bg-gray-800">Cancelar</button>
@@ -228,9 +227,10 @@
             </div>
             <form id="upload-form" onsubmit="handleVideoSubmit(event)" class="p-6 space-y-4">
                 <div>
-                    <label class="block text-xs font-medium text-gray-300 mb-1">Enlace del Video (YouTube o MP4 directo) *</label>
-                    <input type="url" id="upload-url" required placeholder="https://www.youtube.com/watch?v=..." 
-                           class="w-full bg-gray-800 border border-gray-700 rounded-xl px-3 py-2 text-sm text-gray-200 focus:outline-none">
+                    <label class="block text-xs font-medium text-gray-300 mb-1">Archivo de Video (MP4 / WebM) *</label>
+                    <input type="file" id="upload-file" accept="video/mp4,video/webm" 
+                           class="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 bg-gray-800 rounded-xl border border-gray-700 cursor-pointer">
+                    <span class="text-[10px] text-gray-400 mt-1 block">Sube un video propio desde tu dispositivo para que se guarde y reproduzca perfectamente.</span>
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-gray-300 mb-1">Título de la Lección *</label>
@@ -281,19 +281,16 @@
 
         const ALLOWED_ADMINS = ['ISABELLA', 'PULIDO', 'CHOCO'];
         const ADMIN_PASS = '12345678';
-        let currentAdminUser = 'ISABELLA'; // Por defecto ya iniciada para agilizar
+        let currentAdminUser = null;
         let videos = [];
         let activeVideo = null;
         let activeCategoryFilter = 'all';
 
         const mainVideo = document.getElementById('main-video');
-        const iframeContainer = document.getElementById('iframe-container');
         const videoGrid = document.getElementById('video-grid');
         const emptyState = document.getElementById('empty-state');
 
         window.addEventListener('DOMContentLoaded', async () => {
-            try { indexedDB.deleteDatabase('EduTubePhysChemDB'); } catch(e){}
-            updateAuthUI();
             await loadAllVideos();
         });
 
@@ -317,7 +314,9 @@
         async function saveVideoToDB(videoObj) {
             if (supabaseClient) {
                 try {
-                    await supabaseClient.from('videos').upsert([videoObj]);
+                    const record = { ...videoObj };
+                    delete record.fileBlob; // No mandar blob binario gigante a supabase directamente
+                    await supabaseClient.from('videos').upsert([record]);
                 } catch (e) { console.error('Error guardando en la nube:', e); }
             }
         }
@@ -335,12 +334,17 @@
         }
 
         function handleAdminButtonClick() {
-            toggleAdminPanel();
+            if (currentAdminUser) {
+                toggleAdminPanel();
+            } else {
+                openLoginModal();
+            }
         }
 
         function openLoginModal() {
             document.getElementById('login-modal').classList.remove('hidden');
             document.getElementById('login-modal').classList.add('flex');
+            document.getElementById('login-error-msg').classList.add('hidden');
         }
 
         function closeLoginModal() {
@@ -372,12 +376,15 @@
 
         function updateAuthUI() {
             const userBadge = document.getElementById('user-badge-container');
+            const btnAdminText = document.getElementById('btn-admin-text');
             if (currentAdminUser) {
                 userBadge.classList.remove('hidden');
                 document.getElementById('logged-user-name').textContent = currentAdminUser;
                 document.getElementById('admin-session-user').textContent = currentAdminUser;
+                btnAdminText.textContent = 'Panel Admin';
             } else {
                 userBadge.classList.add('hidden');
+                btnAdminText.textContent = 'Subir Video';
             }
         }
 
@@ -424,16 +431,6 @@
             });
         }
 
-        function getEmbedUrl(url) {
-            if (!url) return '';
-            let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            let match = url.match(regExp);
-            if (match && match[2].length === 11) {
-                return 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1';
-            }
-            return url;
-        }
-
         async function playVideo(videoId) {
             const video = videos.find(v => String(v.id) === String(videoId));
             if (!video) return;
@@ -441,21 +438,13 @@
             video.views = (Number(video.views) || 0) + 1;
             await saveVideoToDB(video);
 
-            const formattedSrc = getEmbedUrl(video.src);
-
-            if (formattedSrc.includes('youtube.com/embed')) {
-                mainVideo.classList.add('hidden');
-                mainVideo.pause();
-                iframeContainer.classList.remove('hidden');
-                iframeContainer.innerHTML = `<iframe src="${formattedSrc}" class="w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-            } else {
-                iframeContainer.classList.add('hidden');
-                iframeContainer.innerHTML = '';
-                mainVideo.classList.remove('hidden');
-                mainVideo.src = video.src;
-                mainVideo.play();
+            // Reproducir archivo local o url guardada
+            let playSrc = video.src;
+            if (video.fileDataUrl) {
+                playSrc = video.fileDataUrl;
             }
 
+            mainVideo.src = playSrc;
             document.getElementById('active-video-title').textContent = video.title;
             document.getElementById('active-video-desc').textContent = video.desc || 'Sin descripción.';
             document.getElementById('active-video-views').innerHTML = `<i class="fa-regular fa-eye mr-1"></i> ${video.views} vistas`;
@@ -464,6 +453,7 @@
 
             hideAdminPanel();
             document.getElementById('player-container').classList.remove('hidden');
+            mainVideo.play();
             window.scrollTo({ top: 0, behavior: 'smooth' });
             renderGallery(getFilteredVideos());
             renderRelatedVideos(videoId);
@@ -472,7 +462,6 @@
         function closePlayer() {
             mainVideo.pause();
             mainVideo.src = '';
-            iframeContainer.innerHTML = '';
             activeVideo = null;
             document.getElementById('player-container').classList.add('hidden');
         }
@@ -536,6 +525,7 @@
         });
 
         function openUploadModal() {
+            if (!currentAdminUser) { openLoginModal(); return; }
             document.getElementById('upload-form').reset();
             document.getElementById('upload-modal').classList.remove('hidden');
             document.getElementById('upload-modal').classList.add('flex');
@@ -555,23 +545,34 @@
 
         async function handleVideoSubmit(event) {
             event.preventDefault();
-            const newVideo = {
-                id: 'vid-' + Date.now(),
-                title: document.getElementById('upload-title').value,
-                category: document.getElementById('upload-category').value,
-                quality: document.getElementById('upload-quality').value,
-                desc: document.getElementById('upload-desc').value,
-                src: document.getElementById('upload-url').value,
-                views: 0,
-                date: new Date().toISOString().split('T')[0]
+            const fileInput = document.getElementById('upload-file');
+            if (!fileInput.files.length) { alert('Selecciona un archivo de video.'); return; }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = async function(e) {
+                const newVideo = {
+                    id: 'vid-' + Date.now(),
+                    title: document.getElementById('upload-title').value,
+                    category: document.getElementById('upload-category').value,
+                    quality: document.getElementById('upload-quality').value,
+                    desc: document.getElementById('upload-desc').value,
+                    fileDataUrl: e.target.result, // Guarda el archivo en base64 para sincronización total
+                    src: '',
+                    views: 0,
+                    date: new Date().toISOString().split('T')[0]
+                };
+
+                await saveVideoToDB(newVideo);
+                videos.unshift(newVideo);
+                closeUploadModal();
+                renderGallery(getFilteredVideos());
+                renderAdminTable();
+                showNotification('¡Video publicado con éxito!');
             };
 
-            await saveVideoToDB(newVideo);
-            videos.unshift(newVideo);
-            closeUploadModal();
-            renderGallery(getFilteredVideos());
-            renderAdminTable();
-            showNotification('¡Video publicado y sincronizado!');
+            reader.readAsDataURL(file);
         }
 
         function showNotification(msg) {
